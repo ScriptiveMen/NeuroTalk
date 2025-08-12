@@ -3,10 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homepage</title>
-    <link rel="stylesheet" href="/styles/style.css" />
+    <title>NeuroTalk</title>
+    <link rel="stylesheet" href="/styles/theme.css" />
+    <link rel="stylesheet" href="/styles/home.css" />
   </head>
   <body>
-    <h1>This is homepage</h1>
+    <div class="app-container">
+      <aside class="sidebar">
+        <button class="sidebar-close" type="button" aria-label="Close sidebar">
+          &times;
+        </button>
+        <div class="sidebar-header">
+          <h2>NeuroTalk</h2>
+        </div>
+        <nav>
+          <ul>
+            <li class="active">New Chat</li>
+            <li>History</li>
+          </ul>
+        </nav>
+        <div class="sidebar-footer">
+          <span>Settings</span>
+        </div>
+      </aside>
+      <main class="chat-main">
+        <div class="chat-header">
+          <button class="hamburger" type="button">
+            <span></span><span></span><span></span>
+          </button>
+          <div class="chat-title">
+            <span style="font-size: 1.5rem">💬</span>
+            <span>Conversation</span>
+          </div>
+        </div>
+        <div class="chat-window"></div>
+        <form class="chat-input">
+          <input
+            type="text"
+            placeholder="Type your message..."
+            autocomplete="off"
+          />
+          <button type="submit">Send</button>
+        </form>
+      </main>
+    </div>
+    <script src="/scripts/chat.js"></script>
   </body>
 </html>
