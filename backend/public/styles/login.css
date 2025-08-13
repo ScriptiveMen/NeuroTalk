@@ -53,7 +53,7 @@ label {
   transition: color 0.3s;
 }
 
-input[type="email"],
+input[type="text"],
 input[type="password"] {
   background: var(--input-bg);
   border: 1.5px solid var(--input-border);

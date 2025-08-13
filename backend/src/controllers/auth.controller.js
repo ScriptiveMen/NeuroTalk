@@ -13,9 +13,7 @@ async function postRegisterController(req, res) {
   });
 
   if (isUserExist) {
-    return res.status(409).json({
-      message: "User already exists!",
-    });
+    return res.redirect("/auth/register");
   }
 
   const hashedpassword = await bcrypt.hash(password, 10);
@@ -29,21 +27,46 @@ async function postRegisterController(req, res) {
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
   res.cookie("token", token);
 
-  res.status(201).json({
-    message: "User registered sucessfully",
-    user,
-  });
+  res.redirect("/auth/login");
 }
 
 async function getLoginController(req, res) {
   res.render("login");
 }
 
-async function postLoginController(req, res) {}
+async function postLoginController(req, res) {
+  const { usernameOremail, password } = req.body;
+
+  const user = await userModel.findOne({
+    $or: [{ email: usernameOremail }, { username: usernameOremail }],
+  });
+
+  if (!user) {
+    return res.redirect("/auth/login");
+  }
+
+  const ispasswordValid = await bcrypt.compare(password, user.password);
+  if (!ispasswordValid) {
+    return res.status(401).json({
+      message: "Unauthorized user!",
+    });
+  }
+
+  const token = await jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+  res.cookie("token", token);
+
+  res.redirect("/");
+}
+
+async function logoutUser(req, res) {
+  res.clearCookie("token");
+  res.redirect("/auth/login");
+}
 
 module.exports = {
   getRegisterController,
   postRegisterController,
   getLoginController,
   postLoginController,
+  logoutUser,
 };

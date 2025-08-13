@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require("../middlewares/auth.middleware");
 
-router.get("/", (req, res) => {
+router.get("/", authMiddleware.authUser, (req, res) => {
   res.render("home");
 });
 
