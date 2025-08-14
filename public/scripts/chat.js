@@ -15,21 +15,24 @@ document.addEventListener("DOMContentLoaded", () => {
     chatWindow.scrollTop = chatWindow.scrollHeight;
   }
 
-  // Simulate bot response (replace with actual API call)
-  function botReply(userText) {
-    // You can replace this with an actual fetch to your backend
-    setTimeout(() => {
-      renderMessage("This is a bot response to: " + userText, "ai");
-    }, 700);
-  }
-
   chatForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const userText = chatInput.value.trim();
     if (!userText) return;
+
+    try {
+      socket.emit("ai-message", userText);
+    } catch (err) {
+      console.log(err);
+    }
+
     renderMessage(userText, "user");
     chatInput.value = "";
-    botReply(userText);
+  });
+
+  socket.on("ai-message-response", (aiMessage) => {
+    const botresponse = marked.parse(aiMessage);
+    renderMessage(botresponse, "ai");
   });
 
   // Sidebar hamburger toggle for mobile
