@@ -106,6 +106,7 @@ body {
 .chat-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 1rem;
   border-bottom: 1px solid var(--input-border);
   background: var(--input-bg);
@@ -113,6 +114,15 @@ body {
   box-shadow: 0 1px 4px rgba(79, 140, 255, 0.04);
   margin-bottom: 0.5rem;
 }
+
+.chat-header .logout-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background-color: rgb(240, 85, 85);
+  text-decoration: none;
+  color: #fff;
+}
+
 .chat-title {
   display: flex;
   align-items: center;
